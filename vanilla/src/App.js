@@ -1,5 +1,53 @@
+import { addEvent } from '@/core/Render';
+import store, { SET_TODO_LIST } from '@/store';
+import { selector } from '@/utils';
+
 export default function App() {
+  const { todoList } = store.state;
+
+  function addTodoList() {
+    const $input = selector('.add-input');
+    const title = $input.value;
+
+    if (!title.length) {
+      alert('할 일을 입력해 주세요.');
+      return;
+    }
+
+    const items = [
+      ...todoList,
+      {
+        index: new Date().getTime(),
+        title,
+      }
+    ];
+
+    store.dispatch({ type: SET_TODO_LIST, payload: items });
+  }
+
+  addEvent('click', '.add', addTodoList);
+
   return `
-    hello world!
+    <header>
+      Todo List
+      <nav>
+        <input type="text" name="todolist" class="add-input" placeholder="add todo list" />
+        <button type="button" class="add">추가</button>
+      </nav>
+    </header>
+    <main>
+      <section class="todo">
+        <ul>
+          ${todoList.map(({ index, title }) => (`
+            <li data-index="${index}">
+              <input type="checkbox" name="done">
+              ${title}
+              <button type="button">수정</button>
+              <button type="button">삭제</button>
+            </li>
+          `))}
+        </ul>
+      </section>
+    </main>
   `;
 }
