@@ -1,4 +1,4 @@
-import { render } from '@/core/render';
+import { render } from '@/core/Render';
 import App from '@/App';
 import './style.scss';
 
