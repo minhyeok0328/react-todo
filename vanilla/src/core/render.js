@@ -1,3 +1,5 @@
+import { selector } from '@/utils';
+
 function Render() {
     const renderContext = {
       target: null,
@@ -7,8 +9,10 @@ function Render() {
 
     const registerEvent = () => {
       renderContext.eventStack.forEach(({ type, listener, callback }) => {
-        document.addEventListener(type, listener, callback);
+        selector(listener).addEventListener(type, callback);
       });
+      
+      renderContext.eventStack = [];
     };
 
     const _render = () => {
