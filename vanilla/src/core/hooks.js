@@ -1,12 +1,21 @@
-import Observe from '@/core/observe';
 import { _render } from '@/core/render';
 
 function hooks(callback) {
-  function useState(value) {
-    let state = value;
+  const stateContext = {
+    current: 0,
+    states: [],
+  };
+  function useState(initialValue) {
+    const { current, states } = stateContext;
+    const currentValue = states[current];
+
+    let state = currentValue ?? initialValue;
 
     const setState = (newState) => {
-      state = newState;
+      if (state === newState) return;
+
+      stateContext.current += 1;
+      stateContext.states[stateContext.current] = newState;
       callback();
     };
 
