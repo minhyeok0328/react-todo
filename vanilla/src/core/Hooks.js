@@ -1,6 +1,6 @@
-import { _render } from '@/core/render';
+import { _render } from '@/core/Render.js';
 
-function hooks(callback) {
+function Hooks(callback) {
   const stateContext = {
     current: 0,
     states: [],
@@ -27,6 +27,6 @@ function hooks(callback) {
   };
 }
 
-const { useState } = hooks(_render);
+const { useState } = Hooks(_render);
 
 export { useState };
