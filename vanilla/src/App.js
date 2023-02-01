@@ -1,6 +1,6 @@
 import { addEvent } from '@/core/Render';
 import store, { SET_TODO_LIST } from '@/store';
-import { selector } from '@/utils';
+import { generateRandomString, selector} from '@/utils';
 
 export default function App() {
   const { todoList } = store.state;
@@ -17,7 +17,7 @@ export default function App() {
     const items = [
       ...todoList,
       {
-        index: new Date().getTime(),
+        index: generateRandomString(),
         title,
       }
     ];

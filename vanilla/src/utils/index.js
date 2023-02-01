@@ -3,3 +3,7 @@ export function selector(target) {
   
   return items.length === 1 ? items.pop() : items;
 }
+
+export function generateRandomString() {
+  return Math.random().toString(36).substring(2);
+}
