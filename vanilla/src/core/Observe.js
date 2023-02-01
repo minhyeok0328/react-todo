@@ -8,7 +8,7 @@ export default class Observe {
         const oldValue = target[property];
         target[property] = value;
 
-        if (JSON.stringify(value) !== JSON.stringify(oldValue) && callback) {
+        if (!Object.is(value, oldValue) && callback) {
           callback(property, oldValue, value);
         }
 

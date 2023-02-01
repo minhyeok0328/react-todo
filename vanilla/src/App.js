@@ -1,11 +1,13 @@
 import { addEvent } from '@/core/Render';
 import store, { SET_TODO_LIST } from '@/store';
-import { generateRandomString, selector} from '@/utils';
+import TodoItem from '@/components/TodoItem';
+import { generateRandomString, selector } from '@/utils';
 
 export default function App() {
   const { todoList } = store.state;
 
   function addTodoList() {
+    const { todoList } = store.state;
     const $input = selector('.add-input');
     const title = $input.value;
 
@@ -38,14 +40,7 @@ export default function App() {
     <main>
       <section class="todo">
         <ul>
-          ${todoList.map(({ index, title }) => (`
-            <li data-index="${index}">
-              <input type="checkbox" name="done">
-              ${title}
-              <button type="button">수정</button>
-              <button type="button">삭제</button>
-            </li>
-          `))}
+          ${todoList.map((item) => (TodoItem(item))).join('')}
         </ul>
       </section>
     </main>
