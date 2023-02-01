@@ -9,7 +9,14 @@ function Render() {
 
     const registerEvent = () => {
       renderContext.eventStack.forEach(({ type, listener, callback }) => {
-        selector(listener).addEventListener(type, callback);
+        const $target = selector(listener);
+
+        if (!$target.length) {
+          $target.addEventListener(type, callback);
+          return;
+        }
+
+        $target.forEach((item) => item.addEventListener(type, callback.bind(item)));
       });
       
       renderContext.eventStack = [];

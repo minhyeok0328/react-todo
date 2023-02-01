@@ -1,13 +1,14 @@
 import { addEvent } from '@/core/Render';
-import store, { SET_TODO_LIST } from '@/store';
+import store from '@/store';
 import TodoItem from '@/components/TodoItem';
 import { generateRandomString, selector } from '@/utils';
+import useTodoList from '@/hooks/useTodoList';
 
 export default function App() {
   const { todoList } = store.state;
+  const { patchTodoList } = useTodoList();
 
   function addTodoList() {
-    const { todoList } = store.state;
     const $input = selector('.add-input');
     const title = $input.value;
 
@@ -16,15 +17,10 @@ export default function App() {
       return;
     }
 
-    const items = [
-      ...todoList,
-      {
-        index: generateRandomString(),
-        title,
-      }
-    ];
-
-    store.dispatch({ type: SET_TODO_LIST, payload: items });
+    patchTodoList({
+      index: generateRandomString(),
+      title,
+    });
   }
 
   addEvent('click', '.add', addTodoList);
