@@ -7,9 +7,11 @@ export default function useInput(initialValue = '') {
 
     setValue(value);
   }, []);
+  const reset = useCallback(() => setValue(''), []);
 
   return {
     value,
     onChange,
+    reset,
   };
 }
