@@ -1,22 +1,33 @@
-import store, { SET_TODO_LIST } from '@/store';
+import store, { PATCH_TODO_LIST } from '@/store';
+import { generateRandomString } from '@/utils';
 
 export default function useTodoList() {
   function patchTodoList({ index, title }) {
     const { todoList } = store.state;
-    const findTodo = todoList.filter((item) => item.index === index).length;
-    const data = todoList.map((item) => ({
+    const newItems = todoList.map((item) => ({
       index: item.index,
       title: item.index === index ? title : item.title,
     }));
 
-    if (!findTodo) {
-      data.push({ index, title });
+    if (!index) {
+      newItems.push({
+        index: generateRandomString(),
+        title,
+      });
     }
 
-    store.dispatch({ type: SET_TODO_LIST, payload: data })
+    store.dispatch({ type: PATCH_TODO_LIST, payload: newItems })
+  }
+
+  function removeTodoList(index) {
+    const { todoList } = store.state;
+    const newItems = todoList.filter((item) => item.index !== index);
+
+    store.dispatch({ type: PATCH_TODO_LIST, payload: newItems });
   }
 
   return {
     patchTodoList,
+    removeTodoList,
   };
 }

@@ -3,8 +3,8 @@ import useTodoList from '@/hooks/useTodoList';
 import { selector } from '@/utils';
 
 export default function TodoItem({ index, title }) {
-  const { patchTodoList } = useTodoList();
-  function openUpdatePopup() {
+  const { patchTodoList, removeTodoList } = useTodoList();
+  function updateItem() {
     const $input = selector(`[data-index="${index}"] [name="todo-update"]`);
     const updateText = $input.value;
 
@@ -19,7 +19,12 @@ export default function TodoItem({ index, title }) {
     });
   }
 
-  addEvent('click', `[data-index='${index}'] .update`, openUpdatePopup);
+  function removeItem() {
+    removeTodoList(index);
+  }
+
+  addEvent('click', `[data-index='${index}'] .update`, updateItem);
+  addEvent('click', `[data-index='${index}'] .delete`, removeItem);
 
   return `
     <li data-index="${index}">

@@ -1,7 +1,7 @@
 import { addEvent } from '@/core/Render';
 import store from '@/store';
 import TodoItem from '@/components/TodoItem';
-import { generateRandomString, selector } from '@/utils';
+import { selector } from '@/utils';
 import useTodoList from '@/hooks/useTodoList';
 
 export default function App() {
@@ -17,10 +17,7 @@ export default function App() {
       return;
     }
 
-    patchTodoList({
-      index: generateRandomString(),
-      title,
-    });
+    patchTodoList({ title });
   }
 
   addEvent('click', '.add', addTodoList);
