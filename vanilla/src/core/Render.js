@@ -26,7 +26,7 @@ function Render() {
       const { target, rootComponent } = renderContext;
 
       target.innerHTML = rootComponent();
-      setTimeout(registerEvent, 0);
+      window.onload = () => registerEvent();
     };
 
     const render = (target, rootComponent) => {
