@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import Repository from '@/@core/Repository';
 
+const STORAGE_KEY = 'todo';
 const initialState = {
-  todoList: [],
+  todoList: Repository.get(STORAGE_KEY) || [],
 };
 
 export const todoSlice = createSlice({
@@ -13,6 +15,8 @@ export const todoSlice = createSlice({
         ...state.todoList,
         { ...action.payload },
       ];
+
+      Repository.set(STORAGE_KEY, state.todoList);
     },
   },
 });
