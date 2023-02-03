@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useInput from '@/hooks/useInput';
 import BaseInput from "@/components/BaseInput.jsx";
-import { updateTodoList } from '@/store/todoSlice';
+import { removeTodoList, updateTodoList} from '@/store/todoSlice';
 import { useDispatch } from 'react-redux';
 
 export default function TodoItem({ index, title }) {
@@ -33,6 +33,10 @@ export default function TodoItem({ index, title }) {
 
     setIsUpdate(false);
   }
+  
+  function removeItem() {
+    dispatch(removeTodoList(index));
+  }
 
   return (
     <article key={index}>
@@ -50,7 +54,7 @@ export default function TodoItem({ index, title }) {
       {isUpdate ? (
         <button type="button" onClick={cancelUpdate}>취소</button>
       ) : (
-        <button type="button">삭제</button>)
+        <button type="button" onClick={removeItem}>삭제</button>)
       }
     </article>
   );

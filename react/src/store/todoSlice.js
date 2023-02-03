@@ -27,9 +27,14 @@ export const todoSlice = createSlice({
 
       saveLocalStorage(state.todoList);
     },
+    removeTodoList(state, action) {
+      state.todoList = state.todoList.filter(({ index }) => index !== action.payload);
+      
+      saveLocalStorage(state.todoList);
+    },
   },
 });
 
-export const { setTodoList, updateTodoList } = todoSlice.actions;
+export const { setTodoList, updateTodoList, removeTodoList } = todoSlice.actions;
 
 export default todoSlice.reducer;
