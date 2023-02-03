@@ -12,12 +12,12 @@ export const todoSlice = createSlice({
   name: 'todo',
   initialState,
   reducers: {
-    setTodoList: (state, action) => {
+    setItem: (state, action) => {
       state.todoList.unshift({ ...action.payload });
 
       saveLocalStorage(state.todoList);
     },
-    updateTodoList(state, action) {
+    updateItem(state, action) {
       const { index, title } = action.payload;
 
       state.todoList = state.todoList.map((item) => ({
@@ -27,7 +27,7 @@ export const todoSlice = createSlice({
 
       saveLocalStorage(state.todoList);
     },
-    removeTodoList(state, action) {
+    removeItem(state, action) {
       state.todoList = state.todoList.filter(({ index }) => index !== action.payload);
       
       saveLocalStorage(state.todoList);
@@ -35,6 +35,6 @@ export const todoSlice = createSlice({
   },
 });
 
-export const { setTodoList, updateTodoList, removeTodoList } = todoSlice.actions;
+export const { setItem, updateItem, removeItem } = todoSlice.actions;
 
 export default todoSlice.reducer;

@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import useInput from '@/hooks/useInput';
-import BaseInput from "@/components/BaseInput.jsx";
-import { removeTodoList, updateTodoList} from '@/store/todoSlice';
-import { useDispatch } from 'react-redux';
+import BaseInput from '@/components/BaseInput';
+import useTodoList from '@/hooks/useTodoList';
 
 export default function TodoItem({ index, title }) {
-  const dispatch = useDispatch();
+  const { updateTodo, removeTodo } = useTodoList();
   const [isUpdate, setIsUpdate] = useState(false);
   const updateInput = useInput(title);
   
@@ -19,23 +18,23 @@ export default function TodoItem({ index, title }) {
   }
   
   function updateItem() {
+    const updateTitle = updateInput.value;
+
     if (!updateInput.value) {
       alert('값을 입력해주세요.');
       return;
     }
-
-    dispatch(
-      updateTodoList({
-        index,
-        title: updateInput.value,
-      })
-    );
+    
+    updateTodo({
+      index,
+      title: updateTitle,
+    });
 
     setIsUpdate(false);
   }
   
   function removeItem() {
-    dispatch(removeTodoList(index));
+    removeTodo(index);
   }
 
   return (
