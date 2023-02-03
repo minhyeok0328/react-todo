@@ -7,7 +7,7 @@ export default function useInput(initialValue = '') {
 
     setValue(value);
   }, []);
-  const reset = useCallback(() => setValue(''), []);
+  const reset = useCallback((resetValue = '') => setValue(resetValue || ''), []);
 
   return {
     value,

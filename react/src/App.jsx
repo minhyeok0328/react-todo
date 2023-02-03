@@ -18,10 +18,12 @@ function App() {
       return;
     }
 
-    dispatch(setTodoList({
-      index: generateRandomString(),
-      title,
-    }));
+    dispatch(
+      setTodoList({
+        index: generateRandomString(),
+        title,
+      })
+    );
 
     todoInput.reset();
   }
