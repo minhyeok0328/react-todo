@@ -11,10 +11,7 @@ export const todoSlice = createSlice({
   initialState,
   reducers: {
     setTodoList: (state, action) => {
-      state.todoList = [
-        ...state.todoList,
-        { ...action.payload },
-      ];
+      state.todoList.unshift({ ...action.payload });
 
       Repository.set(STORAGE_KEY, state.todoList);
     },
